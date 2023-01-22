@@ -29,3 +29,15 @@ vim.opt.updatetime = 50
 vim.opt.colorcolumn = "80"
 
 vim.g.mapleader = " "
+
+-- Enable spell check
+vim.opt.spelllang = "en_au"
+
+-- Enable 256 colours
+-- vim.opt.terminalcolor = 256
+
+-- always show status bar
+vim.opt.laststatus = 2
+
+vim.opt.encoding = "UTF-8"
+vim.opt.guifont= "Hack"
