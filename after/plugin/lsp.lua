@@ -3,14 +3,16 @@ local mason_tool_installer = require('mason-tool-installer')
 local lsp = require('lsp-zero')
 
 -- Regular Null-ls servers.
-local null_ls_formatters = {}
+local null_ls_formatters = {"prettierd"}
 local null_ls_code_actions = { "eslint_d" }
+local null_ls_linters = {"golangci-lint"}
 
 -- Regular LSPs
 local mason_lsps = {
 	"ansiblels",
 	"bashls",
 	"cssls",
+    "gopls",
 	"dockerls",
 	"html",
 	"jsonls",
@@ -41,6 +43,11 @@ table.foreach(null_ls_code_actions, function(_, code_action)
 	table.insert(mason_tools_lsps, code_action)
 end)
 
+table.foreach(null_ls_linters, function(_, linter)
+	table.insert(null_ls_sources, null_ls.builtins.code_actions[linter])
+	table.insert(mason_tools_lsps, linter)
+end)
+
 -- Installs the non-LSP servers (formatters, etc.)
 mason_tool_installer.setup {
 	ensure_installed = mason_tools_lsps,
@@ -58,6 +65,7 @@ lsp.ensure_installed(mason_lsps)
 
 -- Runs for each buffer
 lsp.on_attach(function(_, bufnr)
+    lsp.default_keymaps({buffer = bufnr})
 	local noremap = { buffer = bufnr, remap = false }
 	vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, noremap)
 	vim.keymap.set('n', '<leader>f', vim.lsp.buf.format, noremap)
@@ -67,3 +75,33 @@ end)
 -- Allow lua to work in nvim config
 lsp.nvim_workspace()
 lsp.setup()
+
+local lspkind = require('lspkind')
+local cmp = require('cmp')
+cmp.setup({
+	window = {
+		completion = {
+			col_offset = -3,
+			side_padding = 0
+		}
+	},
+	preselect = cmp.PreselectMode.None,
+	experimental = {
+		ghost_text = true,
+	},
+	formatting = {
+		fields = { "kind", "abbr", "menu" },
+		format = function(entry, vim_item)
+			vim_item = lspkind.cmp_format({
+				mode = "symbol",
+				menu = ({
+					buffer = "",
+					nvim_lsp = "",
+					luasnip = "",
+				})
+			})(entry, vim_item)
+			vim_item.kind = " " .. (vim_item.kind or "") .. " "
+			return vim_item
+		end
+	}
+})

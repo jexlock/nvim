@@ -77,6 +77,7 @@ return require('packer').startup(function(use)
             { 'hrsh7th/cmp-path' }, -- Optional
             { 'saadparwaiz1/cmp_luasnip' }, -- Optional
             { 'hrsh7th/cmp-nvim-lua' }, -- Optional
+            { 'onsails/lspkind.nvim'},
 
             -- Snippets
             { 'L3MON4D3/LuaSnip' }, -- Required
@@ -95,6 +96,7 @@ return require('packer').startup(function(use)
     -- Writing Mode
     use('junegunn/goyo.vim')
     use('preservim/vim-pencil')
+
 
     -- Automatically set up your configuration after cloning packer.nvim
     if packer_bootstrap then
