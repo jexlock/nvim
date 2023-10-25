@@ -4,8 +4,8 @@ local lsp = require('lsp-zero')
 
 -- Regular Null-ls servers.
 local null_ls_formatters = {"prettierd"}
-local null_ls_code_actions = { "eslint_d" }
-local null_ls_linters = {"golangci-lint"}
+local null_ls_code_actions = {}
+local null_ls_linters = {}
 
 -- Regular LSPs
 local mason_lsps = {
@@ -29,8 +29,19 @@ local mason_lsps = {
 local null_ls_sources = {
 	null_ls.builtins.formatting.prettierd.with({
 		extra_filetypes = { "markdown", "svelte" }
-	})
+	}),
+    null_ls.builtins.formatting.stylua,
+    null_ls.builtins.diagnostics.eslint_d,
+    null_ls.builtins.completion.spell,
+    null_ls.builtins.code_actions.gitsigns,
+    null_ls.builtins.completion.luasnip,
+    null_ls.builtins.code_actions.refactoring,
+    null_ls.builtins.diagnostics.golangci_lint,
+    null_ls.builtins.diagnostics.gospel,
+    null_ls.builtins.diagnostics.markdownlint,
+    null_ls.builtins.diagnostics.luacheck
 }
+
 local mason_tools_lsps = { "prettierd" }
 
 table.foreach(null_ls_formatters, function(_, formatter)
@@ -56,7 +67,6 @@ mason_tool_installer.setup {
 }
 
 null_ls.setup({
-	debug = true,
 	sources = null_ls_sources
 })
 
