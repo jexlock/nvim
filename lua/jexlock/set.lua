@@ -35,7 +35,7 @@ vim.g.mapleader = " "
 vim.opt.spelllang = "en_au"
 
 -- Enable 256 colours
---vim.opt.terminalcolor = 256
+-- vim.opt.terminalcolor = 256
 
 -- always show status bar
 vim.opt.laststatus = 2

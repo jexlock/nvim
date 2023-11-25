@@ -19,7 +19,7 @@ return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
     -- Nice fuzzy file finder
     use {
-        'nvim-telescope/telescope.nvim', tag = '0.1.1',
+        'nvim-telescope/telescope.nvim', tag = '0.1.4',
         -- or                            , branch = '0.1.x',
         requires = { { 'nvim-lua/plenary.nvim' } }
     }
@@ -45,6 +45,7 @@ return require('packer').startup(function(use)
     -- Go on git
     use('airblade/vim-gitgutter')
     use('tpope/vim-fugitive')
+    use('lewis6991/gitsigns.nvim')
     -- Dev nice things
     use('nvim-lua/popup.nvim')
     use('tpope/vim-surround')

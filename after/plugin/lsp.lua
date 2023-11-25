@@ -30,16 +30,13 @@ local null_ls_sources = {
 	null_ls.builtins.formatting.prettierd.with({
 		extra_filetypes = { "markdown", "svelte" }
 	}),
-    null_ls.builtins.formatting.stylua,
     null_ls.builtins.diagnostics.eslint_d,
     null_ls.builtins.completion.spell,
     null_ls.builtins.code_actions.gitsigns,
     null_ls.builtins.completion.luasnip,
     null_ls.builtins.code_actions.refactoring,
     null_ls.builtins.diagnostics.golangci_lint,
-    null_ls.builtins.diagnostics.gospel,
     null_ls.builtins.diagnostics.markdownlint,
-    null_ls.builtins.diagnostics.luacheck
 }
 
 local mason_tools_lsps = { "prettierd" }
@@ -89,10 +86,11 @@ local lspkind = require('lspkind')
 local cmp = require('cmp')
 cmp.setup({
 	window = {
+        documentation = false,
 		completion = {
 			col_offset = -3,
 			side_padding = 0
-		}
+		},
 	},
 	preselect = cmp.PreselectMode.None,
 	experimental = {
